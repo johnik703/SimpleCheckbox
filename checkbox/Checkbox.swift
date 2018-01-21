@@ -6,10 +6,17 @@
 import Foundation
 import UIKit
 
+protocol CheckBoxDelegate {
+    func checkBoxValueChanged(sender: Checkbox)
+}
+
 /// Checkbox is a simple, animation free checkbox and UISwitch alternative designed
 /// to be performant and easy to implement.
 public class Checkbox: UIControl {
 
+    // MARK: delegate
+    var delegate: CheckBoxDelegate?
+    
     // MARK: - Enums
 
     /// Shape of the center checkmark that appears when `Checkbox.isChecked == true`.
@@ -248,8 +255,10 @@ public class Checkbox: UIControl {
     @objc private func handleTapGesture(recognizer: UITapGestureRecognizer) {
         isChecked = !isChecked
         valueChanged?(isChecked)
-        sendActions(for: .valueChanged)
+//        sendActions(for: .valueChanged)
 
+        delegate?.checkBoxValueChanged(sender: self)
+        
         if useHapticFeedback {
             // Trigger impact feedback.
             feedbackGenerator?.impactOccurred()

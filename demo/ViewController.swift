@@ -25,7 +25,8 @@ class ViewController: UIViewController {
         circleBox.checkedBorderColor = .blue
         circleBox.checkmarkSize = 0.8
         circleBox.checkmarkColor = .blue
-        circleBox.addTarget(self, action: #selector(circleBoxValueChanged(sender:)), for: .valueChanged)
+//        circleBox.addTarget(self, action: #selector(circleBoxValueChanged(sender:)), for: .valueChanged)
+        circleBox.delegate = self
         view.addSubview(circleBox)
 
         // square
@@ -59,3 +60,15 @@ class ViewController: UIViewController {
     }
 
 }
+
+//MARK: implement checkbox delegate
+extension ViewController: CheckBoxDelegate {
+    func checkBoxValueChanged(sender: Checkbox) {
+        print("circle box value change: \(sender.isChecked)")
+    }
+}
+
+
+
+
+
